@@ -1,8 +1,9 @@
-﻿using CSnakes.Runtime;
+﻿using CommunityToolkit.HighPerformance;
+using CSnakes.Runtime;
+using CSnakes.Runtime.Python;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Runtime.InteropServices;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Demo1
 {
@@ -85,6 +86,16 @@ namespace Demo1
 
             byte[] dataAsBytes = MemoryMarshal.AsBytes<double>(data.AsSpan()).ToArray();
             module.GetData2(dataAsBytes);
+
+            // Buffer Protocol
+            var array1d = module.ExampleArray();
+            if (array1d.IsScalar)
+            {
+                ReadOnlySpan<bool> booleans = array1d.AsBoolReadOnlySpan();
+            }
+
+            var array2D = module.ExampleArray2d();
+            ReadOnlySpan2D<int> matrix = array2D.AsInt32ReadOnlySpan2D();
 
             Console.ReadLine();
         }        

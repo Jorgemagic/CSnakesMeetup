@@ -41,4 +41,12 @@ def get_data1(data: list[float]) -> None:
 def get_data2(data: bytes) -> None:
     return;
     
+# Buffer Protocol
+import numpy as np
+from collections.abc import Buffer
 
+def example_array() -> Buffer:
+    return np.array([True, False, True, False, False], dtype=np.bool_)
+
+def example_array_2d() -> Buffer:
+    return np.array([[1,2,3], [4,5,6]], dtype=np.int32)
