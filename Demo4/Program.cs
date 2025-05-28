@@ -96,7 +96,7 @@ namespace Demo4
             var canvas = surface.Canvas;
 
             canvas.Clear();                          // Clear background
-            canvas.DrawBitmap(original, 0, 0);     // Draw original image
+            canvas.DrawBitmap(original, 0, 0);       // Draw original image
             canvas.DrawBitmap(overlay, 0, 0);        // Draw overlay
 
             // 6) Save segmented image

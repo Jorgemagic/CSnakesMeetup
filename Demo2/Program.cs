@@ -40,10 +40,10 @@ namespace Demo2
             var modelList = module.GetModels().ToArray();
 
             var LLMmodel = "llama3:latest";
-            var prompt = "Escribe una poesía sobre .NET MAUI";
+            var prompt = "Escribe una poesía sobre .NET";
 
             // Simple prompt
-            string result = module.Prompt(LLMmodel, "¿Me puedes escribir una poesia sobre .NET MAUI?");
+            string result = module.Prompt(LLMmodel, "¿Me puedes escribir una poesia sobre .NET?");
 
             // Compare differents models
             var models = new[] { "llama3.2:3b", "llama3:latest" };
