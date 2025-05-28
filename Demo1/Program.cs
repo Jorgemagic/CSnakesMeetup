@@ -3,6 +3,8 @@ using CSnakes.Runtime;
 using CSnakes.Runtime.Python;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using System.Numerics.Tensors;
 using System.Runtime.InteropServices;
 
 namespace Demo1
@@ -96,6 +98,28 @@ namespace Demo1
 
             var array2D = module.ExampleArray2d();
             ReadOnlySpan2D<int> matrix = array2D.AsInt32ReadOnlySpan2D();
+
+            var arrayND = module.ExampleTensor();
+            var tensor = arrayND.AsReadOnlyTensorSpan<int>();
+            Console.WriteLine(tensor[0, 0, 0, 0]);
+            Console.WriteLine(tensor[1, 2, 3, 4]);
+
+            // Calling Python without the Source Generator
+            var rawModule = Import.ImportModule("demo1");
+            using (GIL.Acquire())
+            {
+                Console.WriteLine("Invoking Python function: test_int_float");
+                long a = 10;
+                double b = 2.5f;
+                
+                PyObject pythonFunc = rawModule.GetAttr("test_int_float");
+                using PyObject a_pyObject = PyObject.From(a)!;
+                using PyObject b_pyObject = PyObject.From(b)!;
+                using PyObject resultObject = pythonFunc.Call(a_pyObject, b_pyObject);
+                double r = resultObject.As<double>();
+                Console.WriteLine($"Result: {r}");
+            }
+            rawModule.Dispose();
 
             Console.ReadLine();
         }        

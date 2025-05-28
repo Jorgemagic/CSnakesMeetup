@@ -1,6 +1,6 @@
 ﻿# Hello world
 def hello_world(name: str) -> str:
-    return f"Hello, {name}!"
+    return f"Hello, {name} friend!"
 
 # Classes
 class Person:
@@ -50,3 +50,13 @@ def example_array() -> Buffer:
 
 def example_array_2d() -> Buffer:
     return np.array([[1,2,3], [4,5,6]], dtype=np.int32)
+
+def example_tensor() -> Buffer:
+    arr = np.zeros((2,3,4,5), dtype=np.int32)
+    arr[0, 0, 0, 0] = 1
+    arr[1, 2, 3, 4] = 3
+    return arr
+
+# Calling Python without the Source Generator
+def test_int_float(a: int, b: float) -> float:
+    return a + b
