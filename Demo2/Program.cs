@@ -1,6 +1,7 @@
 ﻿using CSnakes.Runtime;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Spectre.Console;
 using System.Text.Json;
 
 namespace Demo2
@@ -39,23 +40,41 @@ namespace Demo2
 
             var modelList = module.GetModels().ToArray();
 
-            var LLMmodel = "llama3:latest";
-            var prompt = "Escribe una poesía sobre .NET";
+            Dictionary<string, string> dictionary = default;
+            AnsiConsole.Clear();
+            AnsiConsole.Status()
+                .Start("[greenyellow]Compare Models...[/]", ctx =>
+                {
 
-            // Simple prompt
-            string result = module.Prompt(LLMmodel, "¿Me puedes escribir una poesia sobre .NET?");
+                    var LLMmodel = "llama3:latest";
+                    var prompt = "Escribe una poesía sobre .NET";
 
-            // Compare differents models
-            var models = new[] { "llama3.2:3b", "llama3:latest" };
-            var comparative = module.CompareModels(prompt, models);
-            var json = comparative.ToString();
-            var dictionary  = JsonSerializer.Deserialize<Dictionary<string, string>>(json);
+                    ctx.Spinner(Spinner.Known.Star);
+                    ctx.SpinnerStyle(Style.Parse("blue"));
 
+                    // Simple prompt
+                    string result = module.Prompt(LLMmodel, "¿Me puedes escribir una poesia sobre .NET?");
+
+                    // Compare differents models
+                    var models = new[] { "llama3.2:3b", "llama3:latest" };
+                    var comparative = module.CompareModels(prompt, models);
+                    var json = comparative.ToString();
+                    dictionary = JsonSerializer.Deserialize<Dictionary<string, string>>(json);
+                });
+
+            var table = new Table();
+            table.Border(TableBorder.Rounded);
+            table.BorderColor(Color.DodgerBlue1);
+            table.ShowRowSeparators();
+            table.AddColumn("[dodgerblue1]Model[/]");
+            table.AddColumn("[dodgerblue1]Result[/]");
+            int index = 0;
             foreach (var kvp in dictionary)
             {
-                Console.WriteLine($"--- {kvp.Key} ---");
-                Console.WriteLine(kvp.Value);
+                table.Columns[index++].Centered();
+                table.AddRow($"[orangered1]{kvp.Key}[/]", $"[greenyellow]{kvp.Value}[/]");
             }
+            AnsiConsole.Write(table);
         }
     }
 }
