@@ -9,15 +9,9 @@
             <Image
                 x:Name="DisplayedImage"
                 Aspect="AspectFit"
-                HeightRequest="500"
+                HeightRequest="450"
                 SemanticProperties.Description="the image"
                 Source="sa_10922.jpg" />
-
-            <ActivityIndicator
-                x:Name="BusyIndicator"
-                HorizontalOptions="Center"
-                IsRunning="False"
-                IsVisible="False" />
 
             <Button
                 x:Name="SegmentBtn"
@@ -25,6 +19,13 @@
                 SemanticProperties.Hint="Use SAM to segment elements of the image"
                 Text="Segment image"
                 WidthRequest="200" />
+
+            <ActivityIndicator
+                x:Name="BusyIndicator"
+                HorizontalOptions="Center"
+                IsRunning="False"
+                IsVisible="False" />
+
         </VerticalStackLayout>
     </ScrollView>
 
