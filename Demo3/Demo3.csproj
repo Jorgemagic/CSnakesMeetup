@@ -50,7 +50,6 @@
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
-		<MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />
 
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
@@ -60,18 +59,38 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="Resources\Images\sa_10922.jpg" />
+	  <AdditionalFiles Include="Python\demo3.py">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </AdditionalFiles>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="Python\sa_10922.jpg">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
 	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
+		<PackageReference Include="CSnakes.Runtime" Version="1.0.33" />
+		<PackageReference Include="python" Version="3.12.6" />
+		<PackageReference Include="SkiaSharp" Version="3.119.0" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <MauiImage Update="Resources\Images\sa_10922.jpg">
-	    <CopyToOutputDirectory></CopyToOutputDirectory>
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 	  </MauiImage>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="Python\requirements.txt">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="Python\sam_vit_b_01ec64.pth">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
 	</ItemGroup>
 
 </Project>

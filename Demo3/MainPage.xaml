@@ -1,25 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Demo3.MainPage">
+<ContentPage
+    x:Class="Demo3.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <ScrollView>
-        <VerticalStackLayout
-            Padding="30,0"
-            Spacing="25">
+        <VerticalStackLayout Padding="30,0" Spacing="25">
             <Image
-                Source="sa_10922.jpg"
-                HeightRequest="500"
+                x:Name="DisplayedImage"
                 Aspect="AspectFit"
-                SemanticProperties.Description="the image" />
+                HeightRequest="500"
+                SemanticProperties.Description="the image"
+                Source="sa_10922.jpg" />
+
+            <ActivityIndicator
+                x:Name="BusyIndicator"
+                HorizontalOptions="Center"
+                IsRunning="False"
+                IsVisible="False" />
 
             <Button
                 x:Name="SegmentBtn"
-                WidthRequest="200"
-                Text="Segment image" 
-                SemanticProperties.Hint="Use SAM to segment elements of the image"
                 Clicked="OnButtonClicked"
-                HorizontalOptions="Fill" />
+                SemanticProperties.Hint="Use SAM to segment elements of the image"
+                Text="Segment image"
+                WidthRequest="200" />
         </VerticalStackLayout>
     </ScrollView>
 
