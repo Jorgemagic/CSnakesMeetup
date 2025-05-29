@@ -43,14 +43,14 @@ namespace Demo2
             Dictionary<string, string> dictionary = default;
             AnsiConsole.Clear();
             AnsiConsole.Status()
-                .Start("[greenyellow]Compare Models...[/]", ctx =>
+                .Start("[bold cyan]Compare Models...[/]", ctx =>
                 {
 
                     var LLMmodel = "llama3:latest";
                     var prompt = "Escribe una poesía sobre .NET";
 
                     ctx.Spinner(Spinner.Known.Star);
-                    ctx.SpinnerStyle(Style.Parse("blue"));
+                    ctx.SpinnerStyle(Style.Parse("white"));
 
                     // Simple prompt
                     string result = module.Prompt(LLMmodel, "¿Me puedes escribir una poesia sobre .NET?");
@@ -64,15 +64,15 @@ namespace Demo2
 
             var table = new Table();
             table.Border(TableBorder.Rounded);
-            table.BorderColor(Color.DodgerBlue1);
+            table.BorderColor(Color.Grey50);
             table.ShowRowSeparators();
-            table.AddColumn("[dodgerblue1]Model[/]");
-            table.AddColumn("[dodgerblue1]Result[/]");
+            table.AddColumn("[bold cyan]Model[/]");
+            table.AddColumn("[bold cyan]Result[/]");
             int index = 0;
             foreach (var kvp in dictionary)
             {
                 table.Columns[index++].Centered();
-                table.AddRow($"[orangered1]{kvp.Key}[/]", $"[greenyellow]{kvp.Value}[/]");
+                table.AddRow($"[cadetblue]{kvp.Key}[/]", $"[grey93]{kvp.Value}[/]");
             }
             AnsiConsole.Write(table);
         }
