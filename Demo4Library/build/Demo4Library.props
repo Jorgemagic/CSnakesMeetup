@@ -1,0 +1,9 @@
+﻿<Project>
+
+	<ItemGroup>
+		<Content Update="@(Content)">
+			<Visible Condition="'%(NuGetItemType)' == 'Content' and '%(NuGetPackageId)' == 'Demo4Library'">false</Visible>
+		</Content>
+	</ItemGroup>
+
+</Project>

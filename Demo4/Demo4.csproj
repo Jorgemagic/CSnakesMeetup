@@ -8,27 +8,9 @@
   </PropertyGroup>
 
 	<ItemGroup>
-		<AdditionalFiles Include="Python\demo4.py">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</AdditionalFiles>
-		<None Update="Python\requirements.txt">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-		<None Update="Python\sam_vit_b_01ec64.pth">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-		<None Update="sa_10922.jpg">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-		<None Update="sa_10937.jpg">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="CSnakes.Runtime" Version="1.0.33" />
+		<PackageReference Include="Demo4Library" Version="1.0.0" />
 		<PackageReference Include="python" Version="3.12.6" />
-		<PackageReference Include="SkiaSharp" Version="3.119.0" />
 	</ItemGroup>
 
 </Project>
