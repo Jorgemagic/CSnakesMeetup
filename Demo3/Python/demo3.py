@@ -4,7 +4,9 @@ import torch
 from segment_anything import sam_model_registry, SamAutomaticMaskGenerator
 
 # Load model only a single time
+
 sam = sam_model_registry["vit_b"](checkpoint="Python/sam_vit_b_01ec64.pth")
+sam.to(device="cuda")
 mask_generator = SamAutomaticMaskGenerator(
     sam,
     points_per_side=16,            # ↓ de 32→16 (256 points)
