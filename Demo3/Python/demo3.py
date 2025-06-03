@@ -16,7 +16,8 @@ mask_generator = SamAutomaticMaskGenerator(
     min_mask_region_area=100       
 )
 
-def segment_image(image_path: str) -> list[list[int]]:
+from collections.abc import Buffer
+def segment_image(image_path: str) -> Buffer:
      # 1) Read image
     image = cv2.imread(image_path)
     if image is None:
@@ -34,4 +35,4 @@ def segment_image(image_path: str) -> list[list[int]]:
         label_map[seg] = idx
 
     # 4) Return label map
-    return label_map.tolist()
+    return label_map

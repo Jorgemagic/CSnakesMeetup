@@ -1,6 +1,7 @@
-﻿using CSnakes.Runtime;
+﻿using CommunityToolkit.HighPerformance;
+using CSnakes.Runtime;
+using CSnakes.Runtime.Python;
 using SkiaSharp;
-using System.Threading.Tasks;
 
 namespace Demo3
 {
@@ -28,20 +29,8 @@ namespace Demo3
                     var module = environment.Demo3();
 
                     string imagePath = "Python/sa_10922.jpg";
-                    var rawLabelMap = module.SegmentImage(imagePath);
-
-                    var labelMap = new List<List<int>>();
-
-                    // Iterate each PyList row
-                    foreach (dynamic pyRow in rawLabelMap)
-                    {
-                        var row = new List<int>();
-                        foreach (dynamic pyVal in pyRow)
-                        {
-                            row.Add((int)pyVal);
-                        }
-                        labelMap.Add(row);
-                    }
+                    IPyBuffer buffer = module.SegmentImage(imagePath);
+                    ReadOnlySpan2D<int> labelMap = buffer.AsInt32ReadOnlySpan2D();
 
                     // Read mask and create overlay segmentation with skiaSharp
 
@@ -54,7 +43,11 @@ namespace Demo3
                     using var overlay = new SKBitmap(width, height);
 
                     // 3) Choose random colors
-                    int maxLabel = labelMap.Max(row => row.Max());
+                    int maxLabel = 0;
+                    for (int y = 0; y < height; y++)
+                        for (int x = 0; x < width; x++)
+                            maxLabel = Math.Max(maxLabel, labelMap[y, x]);
+
                     var rnd = new Random();
                     var colors = Enumerable.Range(0, maxLabel + 1)
                         .Select(i => i == 0
@@ -71,7 +64,7 @@ namespace Demo3
                     {
                         for (int x = 0; x < width; x++)
                         {
-                            int label = labelMap[y][x];
+                            int label = labelMap[y, x];
                             overlay.SetPixel(x, y, colors[label]);
                         }
                     }
